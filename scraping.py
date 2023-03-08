@@ -50,6 +50,7 @@ def create_position_player_stats(playerIDs : list, season : int, startCount = 0,
                                                     "gameID": game['game']['gamePk'],
                                                     "team": game['team']['name'],
                                                     "opponent": game['opponent']['name'],
+                                                    "league": game['league']['abbreviation'],
                                                     "hits": game['stat']['hits'],
                                                     "atBats": game['stat']['atBats'],
                                                     "homeRuns": game['stat']['homeRuns'],
@@ -65,9 +66,11 @@ def create_position_player_stats(playerIDs : list, season : int, startCount = 0,
             count += 1
         except IndexError or gaierror:
             excluded_ids.append(player)
+        # except KeyError:
+        #     pass
         
-        if count % 1000 == 0:
-            print(count)
+        # if count % 1000 == 0:
+        #     print(count)
         if count == limit:
             break
     return pd.DataFrame(game_dict), excluded_ids
@@ -90,6 +93,7 @@ def create_pitcher_stats(playerIDs : list, season : int, startCount = 0, limit =
                                                     "gameID": game['game']['gamePk'],
                                                     "team": game['team']['name'],
                                                     "opponent": game['opponent']['name'],
+                                                    "league": game['league']['name'],
                                                     "hits": game['stat']['hits'],
                                                     "battersFaced": game['stat']['battersFaced'],
                                                     "homeRuns": game['stat']['homeRuns'],
@@ -112,9 +116,11 @@ def create_pitcher_stats(playerIDs : list, season : int, startCount = 0, limit =
             count += 1
         except IndexError or gaierror:
             excluded_ids.append(player)
+        except KeyError:
+            pass
         
-        if count % 1000 == 0:
-            print(count)
+        # if count % 1000 == 0:
+        #     print(count)
         if count == limit:
             break
     return pd.DataFrame(game_dict), excluded_ids
