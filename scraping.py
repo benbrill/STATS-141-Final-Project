@@ -84,7 +84,7 @@ def create_pitcher_stats(playerIDs : list, season : int, startCount = 0, limit =
         if minors:
             current_player = requests.get(f"https://statsapi.mlb.com/api/v1/people/{player}/stats?stats=gameLog&gameType=R&leagueListId=milb_all&group=pitching&hydrate=team(league)&language=en&season={season}",).json()
         else:
-            current_player = requests.get(url + str(player) + '/stats?season=' + str(season) + '&group=hitting&stats=gameLog',).json()
+            current_player = requests.get(url + str(player) + '/stats?season=' + str(season) + '&group=pitching&stats=gameLog',).json()
         # print(current_player)
         try:
             for game in current_player['stats'][0]['splits']:
